@@ -52,11 +52,13 @@ public class PautaApplicationService implements PautaService {
         Pauta pauta = pautaRepository.getById(request.getIdPauta());
         Associado associado = associadoRepository.findByCpf(request.getCpf());
         Optional<Votacao> jaVotou = votacaoRepository.findByAssociadoAndPauta(associado, pauta);
+        if (now.isBefore(pauta.getHorarioInicio()))
+            throw APIException.build(HttpStatus.BAD_REQUEST, "Horário de votação ainda não começou");
         if (now.isAfter(pauta.getHorarioFim()))
             throw APIException.build(HttpStatus.BAD_REQUEST, "Horário de votação encerrado");
-        else if (jaVotou.isPresent())
+        if (jaVotou.isPresent())
             throw APIException.build(HttpStatus.BAD_REQUEST, "Associado já votou nesta pauta");
-        else if (associado.getStatus().equals(Status.UNABLE_TO_VOTE))
+        if (associado.getStatus().equals(Status.UNABLE_TO_VOTE))
             throw APIException.build(HttpStatus.BAD_REQUEST, "Associado não pode votar nesta pauta");
         Votacao votacao = votacaoRepository.salva(new Votacao(request, associado, pauta));
         log.info("[finaliza] PautaApplicationService.createVotacao");
