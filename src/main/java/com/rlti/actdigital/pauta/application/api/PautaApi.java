@@ -18,4 +18,8 @@ public interface PautaApi {
     @ResponseStatus(HttpStatus.CREATED)
     public PautaResponse createPauta(@Valid @RequestBody PautaRequest request);
 
+    @PostMapping("/votacao")
+    @ResponseStatus(HttpStatus.CREATED)
+    public VotacaoResponse createVotacao(@Valid @RequestBody VotacaoRequest request);
+
 }

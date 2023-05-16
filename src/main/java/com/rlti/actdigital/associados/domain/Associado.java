@@ -2,7 +2,7 @@ package com.rlti.actdigital.associados.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rlti.actdigital.associados.application.api.AssociadoRequest;
-import com.rlti.actdigital.pauta.domain.Pauta;
+import com.rlti.actdigital.pauta.domain.Votacao;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,16 +27,15 @@ public class Associado {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @ManyToMany(mappedBy = "associados")
+    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "associado")
     @JsonIgnore
-    List<Pauta> pautas;
+    private List<Votacao> votos;
 
     public Associado(AssociadoRequest associadoRequest) {
         this.nome = associadoRequest.getNome().toUpperCase();
         this.cpf = associadoRequest.getCpf();
         this.status = gerarStatusAleatorio();
     }
-
     /**
      * Gera um status aleatório para o associado
      * @return Status

@@ -13,9 +13,17 @@ public class PautaRestController implements PautaApi {
 
     @Override
     public PautaResponse createPauta(PautaRequest request) {
-        log.info("[inicio] PautaRestController.createPauta");
+        log.info("[inicia] PautaRestController.createPauta");
         PautaResponse  response = pautaService.createPauta(request);
-        log.info("[fim] PautaRestController.createPauta");
+        log.info("[finaliza] PautaRestController.createPauta");
+        return response;
+    }
+
+    @Override
+    public VotacaoResponse createVotacao(VotacaoRequest request) {
+        log.info("[inicia] PautaRestController.createVotacao");
+        VotacaoResponse response = pautaService.createVotacao(request);
+        log.info("[finaliza] PautaRestController.createVotacao");
         return response;
     }
 }

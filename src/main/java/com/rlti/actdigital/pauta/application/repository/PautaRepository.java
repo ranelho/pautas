@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface PautaRepository {
     Pauta salva(Pauta pauta);
     Optional<Pauta> getByDescricaoAndHoraInicio(String descricao, LocalDateTime horarioInicio);
+    Pauta getById(Long idPauta);
 }

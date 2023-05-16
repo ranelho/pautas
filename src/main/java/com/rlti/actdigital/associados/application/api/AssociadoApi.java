@@ -7,9 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-@Tag(name = "Associado", description = "Associado APIs")
+@Tag(name = "Associados", description = "Associados APIs")
 @Validated
-@RequestMapping("/v1/associado")
+@RequestMapping("/v1/associados")
 public interface AssociadoApi {
 
     @PostMapping
