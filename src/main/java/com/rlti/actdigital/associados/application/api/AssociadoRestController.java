@@ -18,4 +18,12 @@ public class AssociadoRestController implements AssociadoApi {
         log.info("[fim] AssociadoRestController.newAssociado");
         return associadoResponse;
     }
+
+    @Override
+    public AssociadoResponse getAssociadoByCpf(String cpf) {
+        log.info("[inicia] AssociadoRestController.getAssociadoByCpf");
+        AssociadoResponse associadoResponse = associadoService.getAssociadoByCpf(cpf);
+        log.info("[finaliza] AssociadoRestController.getAssociadoByCpf");
+        return associadoResponse;
+    }
 }

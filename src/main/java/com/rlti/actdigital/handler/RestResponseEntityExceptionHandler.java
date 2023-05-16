@@ -1,5 +1,7 @@
 package com.rlti.actdigital.handler;
 
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 @RestControllerAdvice
 @Log4j2
@@ -36,6 +39,19 @@ public class RestResponseEntityExceptionHandler {
 			String fieldName = ((FieldError) error).getField();
 			String errorMessage = error.getDefaultMessage();
 			errors.put(fieldName, errorMessage);
+		});
+		return errors;
+	}
+
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(ConstraintViolationException.class)
+	public Map<String, String> handleConstraintViolationException(ConstraintViolationException ex) {
+		Map<String, String> errors = new HashMap<>();
+		Set<ConstraintViolation<?>> constraintViolations = ex.getConstraintViolations();
+		constraintViolations.forEach((violation) -> {
+			String propertyName = violation.getPropertyPath().toString();
+			String errorMessage = violation.getMessage();
+			errors.put(propertyName, errorMessage);
 		});
 		return errors;
 	}

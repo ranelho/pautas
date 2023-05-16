@@ -21,4 +21,12 @@ public class AssociadoApplicationService implements AssociadoService {
         log.info("[finaliza] AssociadoApplicationService.newAssociado");
         return new AssociadoResponse(associado);
     }
+
+    @Override
+    public AssociadoResponse getAssociadoByCpf(String cpf) {
+        log.info("[inicia] AssociadoApplicationService.getAssociadoByCpf");
+        Associado associado = associadoRepository.findByCpf(cpf);
+        log.info("[finaliza] AssociadoApplicationService.getAssociadoByCpf");
+        return new AssociadoResponse(associado);
+    }
 }

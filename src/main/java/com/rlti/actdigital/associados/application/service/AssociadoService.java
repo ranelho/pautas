@@ -5,4 +5,5 @@ import com.rlti.actdigital.associados.application.api.AssociadoResponse;
 
 public interface AssociadoService {
     AssociadoResponse newAssociado(AssociadoRequest associadoRequest);
+    AssociadoResponse getAssociadoByCpf(String cpf);
 }

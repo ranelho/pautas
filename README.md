@@ -8,14 +8,13 @@
 
 - ``Java 17``
 - ``Spring Boot 3.0.6``
-- ``Maven``
+- ``Maven 3.9.1``
 - ``JPA``
 - ``Lombok``
 - ``PostgreSQL``
 - ``InteliJ IDEA``
-- ``Swagger``
+- ``Swagger springdoc 2.0.3``
 - ``Postman``
-- ``DBeaver``
 - ``Git``
 - ``GitHub``
 
@@ -23,15 +22,16 @@
 
 Validação de votos em assembléias:
 
-- [X] Empresa
+- [X] Associado
+- [X] Pauta
 
 # Banco de Dados
 <img src="Banco.png" width=650><br><sub>Banco de Dados</sub>
 
 ## Trechos de código
 
-### Swagger
-http://localhost:8080/act/api/public/swagger-ui/index.html#/
+### Swagger Local
+http://localhost:8080/act/api/public/swagger-ui/index.html
 
 ### Clone Projeto
 git remote add origin https://github.com/ranelho/act.git
@@ -48,6 +48,7 @@ server:
   servlet:
     context-path: /act/api
 
+#configuração swagger
 springdoc:
   swagger-ui:
     path: /public/swagger

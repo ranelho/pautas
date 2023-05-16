@@ -29,10 +29,9 @@ public class Associado {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @ManyToOne
-    @JoinColumn(name = "pauta_id")
+    @ManyToMany(mappedBy = "associados")
     @JsonIgnore
-    Pauta pauta;
+    List<Pauta> pautas;
 
     public Associado(AssociadoRequest associadoRequest) {
         this.nome = associadoRequest.getNome();
