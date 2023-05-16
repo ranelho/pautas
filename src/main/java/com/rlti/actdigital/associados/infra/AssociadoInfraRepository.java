@@ -9,6 +9,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -38,5 +39,13 @@ public class AssociadoInfraRepository implements AssociadoRepository {
             .orElseThrow(() -> APIException.build(HttpStatus.NOT_FOUND, "Associado não encontrado!"));
         log.info("[finaliza] AssociadoInfraRepository.findByCpf");
         return associado;
+    }
+
+    @Override
+    public List<Associado> findAll() {
+        log.info("[inicia] AssociadoInfraRepository.findAll");
+        List<Associado> associados = associadoSprigDataJPARepository.findAll();
+        log.info("[finaliza] AssociadoInfraRepository.findAll");
+        return associados;
     }
 }

@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Log4j2
@@ -38,5 +40,13 @@ public class AssociadoApplicationService implements AssociadoService {
         associado.newStatus();
         associadoRepository.save(associado);
         return new AssociadoStatusResponse(associado);
+    }
+
+    @Override
+    public List<AssociadoResponse> getAllAssociados() {
+        log.info("[inicia] AssociadoApplicationService.getAllAssociados");
+        List<Associado> associados = associadoRepository.findAll();
+        log.info("[finaliza] AssociadoApplicationService.getAllAssociados");
+        return AssociadoResponse.converte(associados);
     }
 }

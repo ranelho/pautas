@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Tag(name = "Associados", description = "Associados APIs")
 @Validated
 @RequestMapping("/v1/associados")
@@ -23,4 +25,8 @@ public interface AssociadoApi {
     @PatchMapping("/status/{cpf}")
     @ResponseStatus(code = HttpStatus.OK)
     AssociadoStatusResponse updateStatusAssociado(@PathVariable("cpf") @CPF(message = "CPF inválido") String cpf);
+
+    @GetMapping("/all")
+    @ResponseStatus(code = HttpStatus.OK)
+    List<AssociadoResponse> getAllAssociados();
 }

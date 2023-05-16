@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @Log4j2
 @RequiredArgsConstructor
@@ -34,4 +36,13 @@ public class AssociadoRestController implements AssociadoApi {
         log.info("[finaliza] AssociadoRestController.updateStatusAssociado");
         return associadoStatusResponse;
     }
+
+    @Override
+    public List<AssociadoResponse> getAllAssociados() {
+        log.info("[inicia] AssociadoRestController.getAllAssociados");
+        List<AssociadoResponse> associadoResponseList = associadoService.getAllAssociados();
+        log.info("[finaliza] AssociadoRestController.getAllAssociados");
+        return associadoResponseList;
+    }
+
 }
