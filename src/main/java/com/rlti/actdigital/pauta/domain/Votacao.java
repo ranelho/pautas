@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "tb_votacao")
 public class Votacao {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long idVoto;
     @Enumerated(EnumType.STRING)
     private Voto voto;

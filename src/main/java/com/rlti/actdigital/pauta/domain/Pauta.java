@@ -18,7 +18,7 @@ import java.util.List;
 @Table(name = "tb_pauta")
 public class Pauta {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long idPauta;
     private String descricao;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -33,7 +33,7 @@ public class Pauta {
     public Pauta(PautaRequest request) {
         this.descricao = request.getDescricao().toUpperCase();
         this.horarioInicio = request.getHorarioInicio();
-        if(request.getTempo() != null) {
+        if(request.getTempo() > 1) {
             this.horarioFim = request.getHorarioInicio().plusMinutes(request.getTempo());
         }
         else {

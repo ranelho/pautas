@@ -6,4 +6,5 @@ public interface PautaService {
     PautaResponse createPauta(PautaRequest request);
     VotacaoResponse createVotacao(VotacaoRequest request);
     ResultadoResponse getResultado(Long idPauta);
+    PautaResponse getPauta(Long idPauta);
 }

@@ -22,4 +22,8 @@ public interface PautaApi {
     @GetMapping("/resultado/{idPauta}")
     @ResponseStatus(HttpStatus.OK)
     public ResultadoResponse getResultado(@PathVariable("idPauta") Long idPauta);
+
+    @GetMapping("/{idPauta}")
+    @ResponseStatus(HttpStatus.OK)
+    public PautaResponse getPauta(@PathVariable("idPauta") Long idPauta);
 }

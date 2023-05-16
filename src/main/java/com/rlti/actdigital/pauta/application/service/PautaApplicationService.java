@@ -11,7 +11,6 @@ import com.rlti.actdigital.pauta.domain.Pauta;
 import com.rlti.actdigital.pauta.domain.Votacao;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +27,7 @@ public class PautaApplicationService implements PautaService {
     private final VotacaoRepository votacaoRepository;
     private final AssociadoRepository associadoRepository;
 
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
     LocalDateTime now = LocalDateTime.parse(formatter.format(LocalDateTime.now()));
 
     @Override
@@ -69,5 +68,13 @@ public class PautaApplicationService implements PautaService {
         log.info("[inicia] PautaApplicationService.getResultado");
         List<Votacao> votacoes = votacaoRepository.findByPauta(pautaRepository.getById(idPauta));
         return new ResultadoResponse(votacoes);
+    }
+
+    @Override
+    public PautaResponse getPauta(Long idPauta) {
+        log.info("[inicia] PautaApplicationService.getPauta");
+        Pauta pauta = pautaRepository.getById(idPauta);
+        log.info("[finaliza] PautaApplicationService.getPauta");
+        return new PautaResponse(pauta);
     }
 }
