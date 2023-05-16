@@ -36,7 +36,9 @@ http://localhost:8080/act/api/public/swagger-ui/index.html#/
 ### Clone Projeto
 git remote add origin https://github.com/ranelho/act.git
 
-### application.yml
+### application.yml 
+profile via variável de ambiente -> ex: para banco em produção SPRING_PROFILES_ACTIVE = prod,
+para banco de teste SPRING_PROFILES_ACTIVE = dev
 
 ```
 spring:
@@ -67,8 +69,24 @@ jpa:
       show_sql: true
       format_sql: true
 ```
+### application-dev.yml
 
-# Autores
+```
+spring:
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://act.postgres.uhserver.com:5432/act
+    username: rltiact
+    password: Dev@8524*
+  jpa:
+    generate-ddl: true
+    properties:
+      hibernate:
+        ddl-auto: update
+        show_sql: true
+        format_sql: true
+```
+# Autor
 
 | [<img src="perfil2.jpg" width=115><br><sub>Ranelho Lacerda</sub>](https://github.com/ranelho) |
 |:---------------------------------------------------------------------------------------------:|
