@@ -33,7 +33,12 @@ public class Pauta {
     public Pauta(PautaRequest request) {
         this.descricao = request.getDescricao().toUpperCase();
         this.horarioInicio = request.getHorarioInicio();
-        //tempo por default é 1 minuto
-        this.horarioFim = request.getHorarioInicio().plusMinutes(1);
+        if(request.getTempo() != null) {
+            this.horarioFim = request.getHorarioInicio().plusMinutes(request.getTempo());
+        }
+        else {
+            //tempo por default é 1 minuto
+            this.horarioFim = request.getHorarioInicio().plusMinutes(1);
+        }
     }
 }

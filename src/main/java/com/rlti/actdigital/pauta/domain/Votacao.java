@@ -1,6 +1,7 @@
 package com.rlti.actdigital.pauta.domain;
 
 import com.rlti.actdigital.associados.domain.Associado;
+import com.rlti.actdigital.pauta.application.api.VotacaoRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,8 +27,8 @@ public class Votacao {
     @JoinColumn(name = "associado_id")
     private Associado associado;
 
-    public Votacao(String voto, Associado associado, Pauta pauta) {
-        this.voto = Voto.valueOf(voto);
+    public Votacao(VotacaoRequest request, Associado associado, Pauta pauta) {
+        this.voto = Voto.valueOf(request.getVoto());
         this.associado = associado;
         this.pauta = pauta;
     }

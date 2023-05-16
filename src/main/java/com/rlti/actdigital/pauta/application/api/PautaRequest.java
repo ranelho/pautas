@@ -12,4 +12,5 @@ public class PautaRequest {
     private String descricao;
     @NotBlank
     private LocalDateTime horarioInicio;
+    Integer tempo;
 }

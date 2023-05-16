@@ -21,5 +21,4 @@ public interface PautaApi {
     @PostMapping("/votacao")
     @ResponseStatus(HttpStatus.CREATED)
     public VotacaoResponse createVotacao(@Valid @RequestBody VotacaoRequest request);
-
 }

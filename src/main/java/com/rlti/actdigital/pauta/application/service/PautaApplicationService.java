@@ -46,7 +46,11 @@ public class PautaApplicationService implements PautaService {
         log.info("[inicia] PautaApplicationService.createVotacao");
         Pauta pauta = pautaRepository.getById(request.getIdPauta());
         Associado associado = associadoRepository.findByCpf(request.getCpf());
-        Votacao votacao = votacaoRepository.salva(new Votacao(request.getVoto(), associado, pauta));
+        Optional<Votacao> jaVotou = votacaoRepository.findByAssociadoAndPauta(associado, pauta);
+        if(jaVotou.isPresent()) {
+            throw APIException.build(HttpStatus.BAD_REQUEST, "Associado já votou nesta pauta");
+        }
+        Votacao votacao = votacaoRepository.salva(new Votacao(request, associado, pauta));
         log.info("[finaliza] PautaApplicationService.createVotacao");
         return new VotacaoResponse(votacao);
     }
