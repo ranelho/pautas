@@ -2,6 +2,7 @@ package com.rlti.actdigital.associados.application.service;
 
 import com.rlti.actdigital.associados.application.api.AssociadoRequest;
 import com.rlti.actdigital.associados.application.api.AssociadoResponse;
+import com.rlti.actdigital.associados.application.api.AssociadoStatusResponse;
 import com.rlti.actdigital.associados.application.repository.AssociadoRepository;
 import com.rlti.actdigital.associados.domain.Associado;
 import lombok.RequiredArgsConstructor;
@@ -28,5 +29,14 @@ public class AssociadoApplicationService implements AssociadoService {
         Associado associado = associadoRepository.findByCpf(cpf);
         log.info("[finaliza] AssociadoApplicationService.getAssociadoByCpf");
         return new AssociadoResponse(associado);
+    }
+
+    @Override
+    public AssociadoStatusResponse updateStatusAssociado(String cpf) {
+        log.info("[inicia] AssociadoApplicationService.updateStatusAssociado");
+        Associado associado = associadoRepository.findByCpf(cpf);
+        associado.newStatus();
+        associadoRepository.save(associado);
+        return new AssociadoStatusResponse(associado);
     }
 }

@@ -20,4 +20,7 @@ public interface AssociadoApi {
     @ResponseStatus(code = HttpStatus.OK)
     AssociadoResponse getAssociadoByCpf(@PathVariable("cpf") @CPF(message = "CPF inválido") String cpf);
 
+    @PatchMapping("/status/{cpf}")
+    @ResponseStatus(code = HttpStatus.OK)
+    AssociadoStatusResponse updateStatusAssociado(@PathVariable("cpf") @CPF(message = "CPF inválido") String cpf);
 }

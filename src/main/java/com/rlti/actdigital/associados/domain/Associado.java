@@ -9,9 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.br.CPF;
 
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -34,15 +32,23 @@ public class Associado {
     List<Pauta> pautas;
 
     public Associado(AssociadoRequest associadoRequest) {
-        this.nome = associadoRequest.getNome();
+        this.nome = associadoRequest.getNome().toUpperCase();
         this.cpf = associadoRequest.getCpf();
         this.status = gerarStatusAleatorio();
     }
 
+    /**
+     * Gera um status aleatório para o associado
+     * @return Status
+     */
     public Status gerarStatusAleatorio() {
         Random random = new Random();
-        Status[] statuses = Status.values();
-        int randomIndex = random.nextInt(statuses.length);
-        return statuses[randomIndex];
+        List<Status> statuses = Arrays.asList(Status.values());
+        Collections.shuffle(statuses, random);
+        return statuses.get(0);
+    }
+
+    public void newStatus() {
+        this.status = gerarStatusAleatorio();
     }
 }
