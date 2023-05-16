@@ -1,41 +1,47 @@
-# Sistema de controle de matriculas de Auto Escola
+## Api de Gestão de Pautas
 
-![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge)
-![GitHub repo size](https://img.shields.io/github/repo-size/iuricode/README-template?style=for-the-badge)
-![GitHub forks](https://img.shields.io/github/forks/iuricode/README-template?style=for-the-badge)
-
-## ✔️ Técnicas e tecnologias utilizadas
+### ✔️ Técnicas e tecnologias utilizadas
 
 - ``Java 17``
 - ``Spring Boot 3.0.6``
-- ``Maven``
+- ``Maven 3.9.1``
 - ``JPA``
 - ``Lombok``
 - ``PostgreSQL``
 - ``InteliJ IDEA``
-- ``Swagger``
-- ``Postman``
-- ``DBeaver``
-- ``Git``
+- ``Swagger springdoc 2.0.3``
+- ``Postman - para teste da APi local``
+- ``Git - para versionamento``
 - ``GitHub``
 
 ### Ajustes e melhorias
 
 Validação de votos em assembléias:
 
-- [X] Empresa
+|Associado | Pauta        |
+| --- | --- |
+| Cadastro | Cadastro     |
+| Lista Todos | Votacao      |
+| Atualiza Status  | Pauta por Id |
+| Busca por CPF  | Resultado    |
 
-# Banco de Dados
-<img src="Banco.png" width=650><br><sub>Banco de Dados</sub>
+
+  
+  |<img src="associados.png" width=300> | <img src="pauta.png" width=300>|
+
+
+## Banco de Dados
+<img src="database.png" width=250><br><sub>Banco de Dados</sub>
 
 ## Trechos de código
 
-### Swagger
-http://localhost:8080/act/api/public/swagger-ui/index.html#/
+### Swagger Local
+http://localhost:8080/act/api/public/swagger-ui/index.html
 
 ### Clone Projeto
+```
 git remote add origin https://github.com/ranelho/act.git
-
+```
 ### application.yml 
 profile via variável de ambiente -> ex: para banco em produção SPRING_PROFILES_ACTIVE = prod,
 para banco de teste SPRING_PROFILES_ACTIVE = dev
@@ -48,6 +54,7 @@ server:
   servlet:
     context-path: /act/api
 
+#configuração swagger
 springdoc:
   swagger-ui:
     path: /public/swagger
@@ -85,6 +92,32 @@ spring:
         ddl-auto: update
         show_sql: true
         format_sql: true
+```
+
+### Validações
+```
+
+// 400 - Bad Request
+{    
+    "message": "Horário de votação ainda não começou"   
+}
+{    
+    "cpf": "CPF inválido"                               
+}
+
+// 404 - Not Found
+{    
+    "message": "Pauta não encontrada!"                  
+}
+{
+    "cpf": "deve corresponder a \"(^\\d{3}\\x2E\\d{3}\\x2E\\d{3}\\x2D\\d{2}$)\""
+}
+// 200 OK -> {{baseUrl}}/v1/pautas/resultado/254
+{
+    "votosSim": 0,
+    "votosNao": 2,
+    "vencedor": "NAO"
+}
 ```
 # Autor
 
