@@ -26,4 +26,12 @@ public class PautaRestController implements PautaApi {
         log.info("[finaliza] PautaRestController.createVotacao");
         return response;
     }
+
+    @Override
+    public ResultadoResponse getResultado(Long idPauta) {
+        log.info("[inicia] PautaRestController.getResultado");
+        ResultadoResponse response = pautaService.getResultado(idPauta);
+        log.info("[finaliza] PautaRestController.getResultado");
+        return response;
+    }
 }

@@ -2,11 +2,9 @@ package com.rlti.actdigital.pauta.application.service;
 
 import com.rlti.actdigital.associados.application.repository.AssociadoRepository;
 import com.rlti.actdigital.associados.domain.Associado;
+import com.rlti.actdigital.associados.domain.Status;
 import com.rlti.actdigital.handler.APIException;
-import com.rlti.actdigital.pauta.application.api.PautaRequest;
-import com.rlti.actdigital.pauta.application.api.PautaResponse;
-import com.rlti.actdigital.pauta.application.api.VotacaoRequest;
-import com.rlti.actdigital.pauta.application.api.VotacaoResponse;
+import com.rlti.actdigital.pauta.application.api.*;
 import com.rlti.actdigital.pauta.application.repository.PautaRepository;
 import com.rlti.actdigital.pauta.application.repository.VotacaoRepository;
 import com.rlti.actdigital.pauta.domain.Pauta;
@@ -16,6 +14,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -49,9 +48,18 @@ public class PautaApplicationService implements PautaService {
         Optional<Votacao> jaVotou = votacaoRepository.findByAssociadoAndPauta(associado, pauta);
         if(jaVotou.isPresent()) {
             throw APIException.build(HttpStatus.BAD_REQUEST, "Associado já votou nesta pauta");
+        }else if (associado.getStatus().equals(Status.UNABLE_TO_VOTE)) {
+            throw APIException.build(HttpStatus.BAD_REQUEST, "Associado não pode votar nesta pauta");
         }
         Votacao votacao = votacaoRepository.salva(new Votacao(request, associado, pauta));
         log.info("[finaliza] PautaApplicationService.createVotacao");
         return new VotacaoResponse(votacao);
+    }
+
+    @Override
+    public ResultadoResponse getResultado(Long idPauta) {
+        log.info("[inicia] PautaApplicationService.getResultado");
+        List<Votacao> votacoes = votacaoRepository.findByPauta(pautaRepository.getById(idPauta));
+        return new ResultadoResponse(votacoes);
     }
 }

@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -30,6 +31,14 @@ public class VotacaoInfraRepository implements VotacaoRepository {
         log.info("[inicia] VotacaoInfraRepository.findByAssociadoAndPauta ");
         Optional<Votacao> result = votacaoSpringDataJPARepository.findByAssociadoAndPauta(associado, pauta);
         log.info("[finaliza] VotacaoInfraRepository.findByAssociadoAndPauta ");
+        return result;
+    }
+
+    @Override
+    public List<Votacao> findByPauta(Pauta byId) {
+        log.info("[inicia] VotacaoInfraRepository.findByPauta ");
+        List<Votacao> result = votacaoSpringDataJPARepository.findByPauta(byId);
+        log.info("[finaliza] VotacaoInfraRepository.findByPauta ");
         return result;
     }
 }
