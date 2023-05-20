@@ -4,10 +4,12 @@ spring:
 server:
   servlet:
     context-path: /act/api
-  cors:
-    origins: ${CORS_ORIGINS}
 
 #configuração swagger
 springdoc:
   swagger-ui:
     path: /public/swagger
+
+# Configuração do CORS
+cors:
+  origins: ${CORS_ORIGINS:http://localhost:5173,http://localhost:3000}
