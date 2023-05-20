@@ -47,7 +47,6 @@ public class PautaApplicationService implements PautaService {
 
     @Override
     public VotacaoResponse createVotacao(VotacaoRequest request) {
-
         log.info("[inicia] PautaApplicationService.createVotacao");
         Pauta pauta = pautaRepository.getById(request.getIdPauta());
         Associado associado = associadoRepository.findByCpf(request.getCpf());

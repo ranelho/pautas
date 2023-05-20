@@ -36,7 +36,7 @@ public class AssociadoInfraRepository implements AssociadoRepository {
         log.info("[inicia] AssociadoInfraRepository.findByCpf");
         Optional<Associado> optionalAssociado = associadoSprigDataJPARepository.findByCpf(cpf);
         Associado associado = optionalAssociado
-            .orElseThrow(() -> APIException.build(HttpStatus.NOT_FOUND, "Associado não encontrado!"));
+            .orElseThrow(() -> APIException.build(HttpStatus.BAD_REQUEST, "Associado não encontrado!"));
         log.info("[finaliza] AssociadoInfraRepository.findByCpf");
         return associado;
     }

@@ -42,7 +42,7 @@ public class PautaInfraRepository implements PautaRepository {
         log.info("[inicia] PautaInfraRepository.getById");
         Optional<Pauta> optionalPauta = pautaSpringDataJPARepository.findById(idPauta);
         Pauta pauta = optionalPauta
-                .orElseThrow(() ->APIException.build(HttpStatus.NOT_FOUND, "Pauta não encontrada!"));
+                .orElseThrow(() ->APIException.build(HttpStatus.BAD_REQUEST, "Pauta não encontrada!"));
         return pauta;
     }
 }
