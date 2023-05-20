@@ -12,6 +12,7 @@ import java.util.List;
 @Tag(name = "Associados", description = "Associados APIs")
 @Validated
 @RequestMapping("/v1/associados")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public interface AssociadoApi {
 
     @PostMapping

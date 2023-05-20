@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Pauta e Votação", description = "Pautas APIs")
 @Validated
 @RequestMapping("/v1/pautas")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public interface PautaApi {
 
     @PostMapping
