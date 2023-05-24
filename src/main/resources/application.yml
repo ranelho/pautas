@@ -9,4 +9,3 @@ server:
 springdoc:
   swagger-ui:
     path: /public/swagger
-    url: ${SWAGGER_URL}
