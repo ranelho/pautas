@@ -7,7 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @OpenAPIDefinition(info = @Info(title = "ACT Pautas", version = "1.0.0", description = "Gestão de Pautas"),
-		servers = {@Server(url = "/", description = "Default Server URL")})
+		servers = {@Server(url = "/act/api", description = "Default Server URL")})
 @SpringBootApplication
 public class ActDigitalApplication {
 
