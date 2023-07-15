@@ -20,7 +20,7 @@ public class Associado {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID idAssociado;
-    private String nome;
+    private String fullName;
     @CPF
     @Column(unique = true, updatable = false)
     private String cpf;
@@ -32,19 +32,17 @@ public class Associado {
     private List<Votacao> votos;
 
     public Associado(AssociadoRequest associadoRequest) {
-        this.nome = associadoRequest.getNome().toUpperCase();
-        this.cpf = associadoRequest.getCpf();
+        this.fullName = associadoRequest.fullName().toUpperCase();
+        this.cpf = associadoRequest.cpf();
         this.status = gerarStatusAleatorio();
     }
-    /**
-     * Gera um status aleatório para o associado
-     * @return Status
-     */
+
+    private static final Random random = new Random();
+
     public Status gerarStatusAleatorio() {
-        Random random = new Random();
-        List<Status> statuses = Arrays.asList(Status.values());
-        Collections.shuffle(statuses, random);
-        return statuses.get(0);
+        List<Status> list = Arrays.asList(Status.values());
+        Collections.shuffle(list, random);
+        return list.get(0);
     }
 
     public void newStatus() {

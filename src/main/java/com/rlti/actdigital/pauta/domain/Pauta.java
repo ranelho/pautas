@@ -31,14 +31,14 @@ public class Pauta {
     private List<Votacao> votos;
 
     public Pauta(PautaRequest request) {
-        this.descricao = request.getDescricao().toUpperCase();
-        this.horarioInicio = request.getHorarioInicio();
-        if(request.getTempo() > 1) {
-            this.horarioFim = request.getHorarioInicio().plusMinutes(request.getTempo());
+        this.descricao = request.descricao().toUpperCase();
+        this.horarioInicio = request.horarioInicio();
+        if(request.tempo() > 1) {
+            this.horarioFim = request.horarioInicio().plusMinutes(request.tempo());
         }
         else {
             //tempo por default é 1 minuto
-            this.horarioFim = request.getHorarioInicio().plusMinutes(1);
+            this.horarioFim = request.horarioInicio().plusMinutes(1);
         }
     }
 }
