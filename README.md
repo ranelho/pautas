@@ -41,6 +41,8 @@ http://localhost:8080/act/api/public/swagger-ui/index.html
 ### Swagger em Deploy
 https://act-production.up.railway.app/act/api/public/swagger-ui/index.html
 
+Em deploy até 26-05
+
 ### Clone Projeto
 ```
 git remote add origin https://github.com/ranelho/act.git
