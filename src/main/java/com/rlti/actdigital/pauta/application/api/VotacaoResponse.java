@@ -12,6 +12,6 @@ public class VotacaoResponse {
     public VotacaoResponse(Votacao votacao) {
         this.idVoto = votacao.getIdVoto();
         this.voto = votacao.getVoto().toString();
-        this.associado = votacao.getAssociado().getNome();
+        this.associado = votacao.getAssociado().getFullName();
     }
 }

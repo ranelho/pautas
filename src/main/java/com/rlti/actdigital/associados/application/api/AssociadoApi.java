@@ -3,6 +3,9 @@ package com.rlti.actdigital.associados.application.api;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +19,7 @@ public interface AssociadoApi {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    AssociadoResponse newAssociado(@Valid @RequestBody AssociadoRequest associadoRequest);
+    AssociadoResponse newAssociado(@Valid @RequestBody AssociadoRequest request);
 
     @GetMapping("/{cpf}")
     @ResponseStatus(code = HttpStatus.OK)

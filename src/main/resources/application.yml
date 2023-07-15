@@ -5,7 +5,6 @@ server:
   servlet:
     context-path: /act/api
 
-#configuração swagger
 springdoc:
   swagger-ui:
     path: /public/swagger

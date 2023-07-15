@@ -7,6 +7,8 @@ import com.rlti.actdigital.associados.application.repository.AssociadoRepository
 import com.rlti.actdigital.associados.domain.Associado;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +20,7 @@ public class AssociadoApplicationService implements AssociadoService {
     private final AssociadoRepository associadoRepository;
 
     @Override
-    public AssociadoResponse newAssociado(AssociadoRequest associadoRequest) {
+    public AssociadoResponse newAssociado(final AssociadoRequest associadoRequest) {
         log.info("[inicia] AssociadoApplicationService.newAssociado");
         Associado associado = associadoRepository.save(new Associado(associadoRequest));
         log.info("[finaliza] AssociadoApplicationService.newAssociado");
@@ -39,6 +41,7 @@ public class AssociadoApplicationService implements AssociadoService {
         Associado associado = associadoRepository.findByCpf(cpf);
         associado.newStatus();
         associadoRepository.save(associado);
+        log.info("[finaliza] AssociadoApplicationService.updateStatusAssociado");
         return new AssociadoStatusResponse(associado);
     }
 

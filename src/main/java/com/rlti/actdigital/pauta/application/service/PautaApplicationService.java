@@ -33,8 +33,8 @@ public class PautaApplicationService implements PautaService {
     @Override
     public PautaResponse createPauta(PautaRequest request) {
         log.info("[inicia] PautaApplicationService.createPauta");
-        Optional<Pauta> existePauta = pautaRepository.getByDescricaoAndHoraInicio(request.getDescricao(),
-                request.getHorarioInicio());
+        Optional<Pauta> existePauta = pautaRepository.getByDescricaoAndHoraInicio(request.descricao(),
+                request.horarioInicio());
         if(existePauta.isEmpty()) {
             Pauta pauta = pautaRepository.salva(new Pauta(request));
             log.info("[finaliza] PautaApplicationService.createPauta");
