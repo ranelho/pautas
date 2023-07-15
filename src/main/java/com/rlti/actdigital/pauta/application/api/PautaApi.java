@@ -2,9 +2,11 @@ package com.rlti.actdigital.pauta.application.api;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.OK;
 
 @Tag(name = "Pauta e Votação", description = "Pautas APIs")
 @Validated
@@ -12,18 +14,18 @@ import org.springframework.web.bind.annotation.*;
 public interface PautaApi {
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(CREATED)
     public PautaResponse createPauta(@Valid @RequestBody PautaRequest request);
 
     @PostMapping("/votacao")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(CREATED)
     public VotacaoResponse createVotacao(@Valid @RequestBody VotacaoRequest request);
 
     @GetMapping("/resultado/{idPauta}")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(OK)
     public ResultadoResponse getResultado(@PathVariable("idPauta") Long idPauta);
 
     @GetMapping("/{idPauta}")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(OK)
     public PautaResponse getPauta(@PathVariable("idPauta") Long idPauta);
 }

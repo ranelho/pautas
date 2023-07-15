@@ -1,42 +1,39 @@
 package com.rlti.actdigital.pauta.application.api;
 
+import com.rlti.actdigital.pauta.domain.Pauta;
 import com.rlti.actdigital.pauta.domain.Votacao;
 import com.rlti.actdigital.pauta.domain.Voto;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
 public class ResultadoResponse {
+    private String pauta;
+    private LocalDateTime dataPauta;
+    private List<VotacaoResponse> votantes;
     private Integer votosSim;
     private Integer votosNao;
     private String vencedor;
 
-    public ResultadoResponse(List<Votacao> votacoes) {
-        int[] resultados = somarResultados(votacoes);
-        this.votosSim = resultados[0];
-        this.votosNao = resultados[1];
-        //vencedor é quem tem o maior resultado
-        if (this.votosSim > this.votosNao) {
+    public ResultadoResponse(List<Votacao> votacoes, Pauta pauta) {
+        this.pauta = pauta.getDescricao();
+        this.dataPauta = pauta.getHorarioInicio();
+        this.votantes = VotacaoResponse.converte(votacoes);
+        int sim = (int) votacoes.stream()
+                .filter(voto -> voto.getVoto() == Voto.SIM).count();
+        int nao = votacoes.size() - sim;
+
+        this.votosSim = sim;
+        this.votosNao = nao;
+
+        if (sim > nao) {
             this.vencedor = "SIM";
-        }else if (this.votosSim < this.votosNao){
+        } else if (sim < nao) {
             this.vencedor = "NAO";
-        }else {
+        } else {
             this.vencedor = "EMPATE";
         }
-    }
-
-   //somar os votos de cada voto
-    private int[] somarResultados(List<Votacao> votacoes) {
-        int votosSim = 0;
-        int votosNao = 0;
-        for (Votacao voto : votacoes) {
-            if (voto.getVoto() == Voto.SIM) {
-                votosSim++;
-            } else {
-                votosNao++;
-            }
-        }
-        return new int[]{votosSim, votosNao};
     }
 }

@@ -3,15 +3,18 @@ package com.rlti.actdigital.pauta.application.api;
 import com.rlti.actdigital.pauta.domain.Votacao;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class VotacaoResponse {
-    Long idVoto;
-    String voto;
     String associado;
+    String voto;
 
     public VotacaoResponse(Votacao votacao) {
-        this.idVoto = votacao.getIdVoto();
         this.voto = votacao.getVoto().toString();
         this.associado = votacao.getAssociado().getFullName();
+    }
+    public static List<VotacaoResponse> converte(List<Votacao> exames) {
+        return exames.stream().map(VotacaoResponse::new).toList();
     }
 }

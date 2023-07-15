@@ -18,7 +18,8 @@ import java.util.List;
 @Table(name = "tb_pauta")
 public class Pauta {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_pauta")
+    @SequenceGenerator(name = "sequence_pauta", sequenceName = "sequence_pauta")
     private Long idPauta;
     private String descricao;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")

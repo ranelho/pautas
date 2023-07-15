@@ -1,9 +1,15 @@
 package com.rlti.actdigital.pauta.application.api;
 
 import com.rlti.actdigital.pauta.application.service.PautaService;
+import com.rlti.actdigital.pauta.domain.Pauta;
+import com.rlti.actdigital.pauta.infra.PautaSpringDataJPARepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
