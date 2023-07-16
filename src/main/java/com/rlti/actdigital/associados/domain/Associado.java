@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.br.CPF;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @AllArgsConstructor
@@ -26,6 +27,7 @@ public class Associado {
     private String cpf;
     @Enumerated(EnumType.STRING)
     private Status status;
+    private LocalDate dataRegistro = LocalDate.now();
 
     @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "associado")
     @JsonIgnore
@@ -37,15 +39,15 @@ public class Associado {
         this.status = gerarStatusAleatorio();
     }
 
+    public void newStatus() {
+        this.status = gerarStatusAleatorio();
+    }
+
     private static final Random random = new Random();
 
     public Status gerarStatusAleatorio() {
         List<Status> list = Arrays.asList(Status.values());
         Collections.shuffle(list, random);
         return list.get(0);
-    }
-
-    public void newStatus() {
-        this.status = gerarStatusAleatorio();
     }
 }

@@ -20,7 +20,7 @@ public class PautaRestController implements PautaApi {
     @Override
     public PautaResponse createPauta(PautaRequest request) {
         log.info("[inicia] PautaRestController.createPauta");
-        PautaResponse  response = pautaService.createPauta(request);
+        PautaResponse response = pautaService.createPauta(request);
         log.info("[finaliza] PautaRestController.createPauta");
         return response;
     }

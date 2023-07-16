@@ -20,9 +20,9 @@ public class AssociadoApplicationService implements AssociadoService {
     private final AssociadoRepository associadoRepository;
 
     @Override
-    public AssociadoResponse newAssociado(final AssociadoRequest associadoRequest) {
+    public AssociadoResponse newAssociado(final AssociadoRequest request) {
         log.info("[inicia] AssociadoApplicationService.newAssociado");
-        Associado associado = associadoRepository.save(new Associado(associadoRequest));
+        Associado associado = associadoRepository.save(new Associado(request));
         log.info("[finaliza] AssociadoApplicationService.newAssociado");
         return new AssociadoResponse(associado);
     }

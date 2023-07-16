@@ -35,7 +35,8 @@ public class AssociadoInfraRepository implements AssociadoRepository {
     public Associado findByCpf(String cpf) {
         log.info("[inicia] AssociadoInfraRepository.findByCpf");
         Optional<Associado> optionalAssociado = jpaRepository.findByCpf(cpf);
-        Associado associado = optionalAssociado.orElseThrow(() -> build(BAD_REQUEST, "Associado não encontrado!"));
+        Associado associado = optionalAssociado
+                .orElseThrow(() -> build(BAD_REQUEST, "Associado não encontrado!"));
         log.info("[finaliza] AssociadoInfraRepository.findByCpf");
         return associado;
     }

@@ -23,7 +23,7 @@ public class AssociadoRestController implements AssociadoApi {
     public AssociadoResponse newAssociado(AssociadoRequest request) {
         log.info("[inicia] AssociadoRestController.newAssociado");
         AssociadoResponse response = associadoService.newAssociado(request);
-        log.info("[fim] AssociadoRestController.newAssociado");
+        log.info("[finaliza] AssociadoRestController.newAssociado");
         return response;
     }
 
