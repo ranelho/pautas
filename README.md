@@ -33,9 +33,12 @@ Validação de votos em assembleias:
 ### ER Diagrama BD
 <img src="database.png" width=250>
 
-### Pull Request Feito
+### Pull Request's
+```
 https://github.com/ranelho/act/pull/1
 
+https://github.com/ranelho/act/pull/2
+```
 ### Swagger Local
 http://localhost:8080/act/api/public/swagger-ui/index.html
 ### Swagger em Deploy
