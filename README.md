@@ -3,7 +3,7 @@
 ### ✔️ Técnicas e tecnologias utilizadas
 
 - ``Java 17``
-- ``Spring Boot 3.0.6``
+- ``Spring Boot 3.1.1``
 - ``Maven 3.9.1``
 - ``JPA``
 - ``Lombok``
@@ -25,7 +25,10 @@ Validação de votos em assembleias:
 | Atualiza Status  | Pauta por Id |
 | Busca por CPF  | Resultado    |
 
- 
+### Swagger Local
+```
+http://localhost:8080/act/api/public/swagger-ui/index.html
+```
   |<img src="associados.png" width=300> | <img src="pauta.png" width=300>|
 
 ### ER Diagrama BD
@@ -37,11 +40,7 @@ https://github.com/ranelho/act/pull/1
 
 https://github.com/ranelho/act/pull/2
 ```
-### Swagger Local
-http://localhost:8080/act/api/public/swagger-ui/index.html
 
-
-Em deploy até 26-05
 
 ### Clone Projeto
 ```
