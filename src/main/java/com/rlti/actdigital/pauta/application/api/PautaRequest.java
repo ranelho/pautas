@@ -1,16 +1,19 @@
 package com.rlti.actdigital.pauta.application.api;
 
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
-@Data
-public class PautaRequest {
-    @NotBlank(message = "Descrição obrigatória!")
-    private String descricao;
-    private LocalDateTime horarioInicio;
-    @Min(value = 1)
-    Integer tempo;
+public record PautaRequest(
+        @NotBlank(message = "Descrição obrigatória!")
+        String descricao,
+        @NotNull(message = "Horário obrigatório!")
+        LocalDateTime horarioInicio,
+        @Min(value = 1)
+        @Max(value = 60)
+        Integer tempo
+) {
 }

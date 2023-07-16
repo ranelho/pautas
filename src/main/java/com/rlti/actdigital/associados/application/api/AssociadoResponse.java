@@ -2,6 +2,7 @@ package com.rlti.actdigital.associados.application.api;
 
 import com.rlti.actdigital.associados.domain.Associado;
 import lombok.Value;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.UUID;
@@ -9,13 +10,13 @@ import java.util.UUID;
 @Value
 public class AssociadoResponse {
     UUID idAssociado;
-    String nome;
+    String fullName;
     String cpf;
     String status;
 
     public AssociadoResponse(Associado associado) {
         this.idAssociado = associado.getIdAssociado();
-        this.nome = associado.getNome();
+        this.fullName = associado.getFullName();
         this.cpf = associado.getCpf();
         this.status = associado.getStatus().toString();
     }
