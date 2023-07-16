@@ -8,6 +8,8 @@ import lombok.Data;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static com.rlti.actdigital.pauta.domain.Voto.*;
+
 @Data
 public class ResultadoResponse {
     private String pauta;
@@ -15,25 +17,25 @@ public class ResultadoResponse {
     private List<VotacaoResponse> votantes;
     private Integer votosSim;
     private Integer votosNao;
-    private String vencedor;
+    private Voto vencedor;
 
     public ResultadoResponse(List<Votacao> votacoes, Pauta pauta) {
         this.pauta = pauta.getDescricao();
         this.dataPauta = pauta.getHorarioInicio();
         this.votantes = VotacaoResponse.converte(votacoes);
         int sim = (int) votacoes.stream()
-                .filter(voto -> voto.getVoto() == Voto.SIM).count();
+                .filter(voto -> voto.getVoto() == SIM).count();
         int nao = votacoes.size() - sim;
 
         this.votosSim = sim;
         this.votosNao = nao;
 
         if (sim > nao) {
-            this.vencedor = "SIM";
+            this.vencedor = SIM;
         } else if (sim < nao) {
-            this.vencedor = "NAO";
+            this.vencedor = NAO;
         } else {
-            this.vencedor = "EMPATE";
+            this.vencedor = EMPATE;
         }
     }
 }
