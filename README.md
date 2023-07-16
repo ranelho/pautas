@@ -13,8 +13,6 @@
 - ``Postman - para teste da APi local``
 - ``Git - para versionamento``
 - ``GitHub``
-- ``Deploy Railway - https://railway.app/ licença de teste com horas limitadas,``
-- ``o deploy vai ficar ativo até 19-05 às 14h``
 
 ### Ajustes e melhorias
 
@@ -38,8 +36,7 @@ https://github.com/ranelho/act/pull/1
 
 ### Swagger Local
 http://localhost:8080/act/api/public/swagger-ui/index.html
-### Swagger em Deploy
-https://act-production.up.railway.app/act/api/public/swagger-ui/index.html
+
 
 Em deploy até 26-05
 
@@ -125,11 +122,32 @@ spring:
 {
     "cpf": "deve corresponder a \"(^\\d{3}\\x2E\\d{3}\\x2E\\d{3}\\x2D\\d{2}$)\""
 }
-// 200 OK -> {{baseUrl}}/v1/pautas/resultado/254
+
+```
+### Resultado
+```
 {
-    "votosSim": 0,
-    "votosNao": 2,
-    "vencedor": "NAO"
+    ##{{baseUrl}}/v1/pautas/resultado/:idPauta
+    
+    "pauta": "LEI 123",
+    "dataPauta": "2023-07-15 14:16",
+    "votantes": [
+        {
+            "associado": "RAFAELA SANDRA LAVÍNIA DRUMOND"
+            "voto": "NAO",
+        },
+        {
+            "associado": "GIOVANNI AUGUSTO PIRES"
+            "voto": "SIM",
+        },
+        {
+            "associado": "JOSÉ LUAN DAS NEVES"
+            "voto": "SIM",
+        }
+    ],
+    "votosSim": 2,
+    "votosNao": 1,
+    "vencedor": "SIM"
 }
 ```
 [⬆ Voltar ao topo](https://github.com/ranelho/act)<br>

@@ -3,11 +3,13 @@ package com.rlti.actdigital.associados.application.api;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.hibernate.validator.constraints.br.CPF;
-import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.OK;
 
 @Tag(name = "Associados", description = "Associados APIs")
 @Validated
@@ -15,18 +17,18 @@ import java.util.List;
 public interface AssociadoApi {
 
     @PostMapping
-    @ResponseStatus(code = HttpStatus.CREATED)
-    AssociadoResponse newAssociado(@Valid @RequestBody AssociadoRequest associadoRequest);
+    @ResponseStatus(CREATED)
+    AssociadoResponse newAssociado(@Valid @RequestBody AssociadoRequest request);
 
     @GetMapping("/{cpf}")
-    @ResponseStatus(code = HttpStatus.OK)
-    AssociadoResponse getAssociadoByCpf(@PathVariable("cpf") @CPF(message = "CPF inválido") String cpf);
+    @ResponseStatus(OK)
+    AssociadoResponse getAssociadoByCpf(@PathVariable("cpf") @CPF(message = "CPF inválido!") String cpf);
 
     @PatchMapping("/status/{cpf}")
-    @ResponseStatus(code = HttpStatus.OK)
-    AssociadoStatusResponse updateStatusAssociado(@PathVariable("cpf") @CPF(message = "CPF inválido") String cpf);
+    @ResponseStatus(OK)
+    AssociadoStatusResponse updateStatusAssociado(@PathVariable("cpf") @CPF(message = "CPF inválido!") String cpf);
 
     @GetMapping("/all")
-    @ResponseStatus(code = HttpStatus.OK)
+    @ResponseStatus(OK)
     List<AssociadoResponse> getAllAssociados();
 }
