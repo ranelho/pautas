@@ -90,7 +90,7 @@ spring:
 ### application-dev.yml
 
 ```
-#Configuração para acesso ao banco de dados de testes local
+# Configuração para acesso ao banco de dados de testes local
 
 spring:
   datasource:
@@ -128,9 +128,9 @@ spring:
 ```
 ### Resultado
 ```
-{
-    ##{{baseUrl}}/v1/pautas/resultado/:idPauta
-    
+// {{baseUrl}}/v1/pautas/resultado/:idPauta
+
+{  
     "pauta": "LEI 123",
     "dataPauta": "2023-07-15 14:16",
     "votantes": [
