@@ -1,25 +1,23 @@
-package com.rlti.actdigital.pauta.application.service;
+package com.rlti.pautas.pauta.application.service;
 
-import com.rlti.actdigital.associados.application.repository.AssociadoRepository;
-import com.rlti.actdigital.associados.domain.Associado;
-import com.rlti.actdigital.associados.domain.Status;
-import com.rlti.actdigital.pauta.application.api.*;
-import com.rlti.actdigital.pauta.application.repository.PautaRepository;
-import com.rlti.actdigital.pauta.application.repository.VotacaoRepository;
-import com.rlti.actdigital.pauta.domain.Pauta;
-import com.rlti.actdigital.pauta.domain.Votacao;
+import com.rlti.pautas.associados.application.repository.AssociadoRepository;
+import com.rlti.pautas.associados.domain.Associado;
+import com.rlti.pautas.associados.domain.Status;
+import com.rlti.pautas.pauta.application.api.*;
+import com.rlti.pautas.pauta.application.repository.PautaRepository;
+import com.rlti.pautas.pauta.application.repository.VotacaoRepository;
+import com.rlti.pautas.pauta.domain.Pauta;
+import com.rlti.pautas.pauta.domain.Votacao;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
-import static com.rlti.actdigital.handler.APIException.build;
+import static com.rlti.pautas.handler.APIException.build;
 import static java.time.temporal.ChronoUnit.*;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
@@ -49,9 +47,9 @@ public class PautaApplicationService implements PautaService {
     }
 
     @Override
-    public VotacaoResponse createVotacao(VotacaoRequest request) {
+    public VotacaoResponse createVotacao(final Long idPauta, final VotacaoRequest request) {
         log.info("[inicia] PautaApplicationService.createVotacao");
-        Pauta pauta = pautaRepository.getById(request.idPauta());
+        Pauta pauta = pautaRepository.getById(idPauta);
         Associado associado = associadoRepository.findByCpf(request.cpf());
         Optional<Votacao> jaVotou = votacaoRepository.findByAssociadoAndPauta(associado, pauta);
         if (now.isBefore(pauta.getHorarioInicio())) {

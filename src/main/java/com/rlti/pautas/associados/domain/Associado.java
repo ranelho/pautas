@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -17,6 +19,7 @@ import java.util.*;
 @Getter
 @Entity
 @Table(name = "tb_associado")
+@EntityListeners(AuditingEntityListener.class)
 public class Associado {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,7 +30,8 @@ public class Associado {
     private String cpf;
     @Enumerated(EnumType.STRING)
     private Status status;
-    private LocalDate dataRegistro = LocalDate.now();
+    @CreatedDate
+    private LocalDate dataRegistro;
 
     @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "associado")
     @JsonIgnore
