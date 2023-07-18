@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.rl-ti</groupId>
-	<artifactId>actdigital</artifactId>
+	<artifactId>pautas</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>actdigital</name>
+	<name>pautas</name>
 	<description>Votação</description>
 	<properties>
 		<java.version>17</java.version>

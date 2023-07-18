@@ -1,9 +1,9 @@
 spring:
   profiles:
-    active: ${SPRING_PROFILES_ACTIVE}
+    active: ${SPRING_PROFILES_ACTIVE=dev}
 server:
   servlet:
-    context-path: /act/api
+    context-path: /pauta/api
 
 springdoc:
   swagger-ui:
