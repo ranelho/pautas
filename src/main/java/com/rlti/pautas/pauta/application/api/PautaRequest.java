@@ -12,8 +12,7 @@ public record PautaRequest(
         String descricao,
         @NotNull(message = "Horário obrigatório!")
         LocalDateTime horarioInicio,
-        @Min(value = 1)
-        @Max(value = 60)
+        @Min(value = 1) @Max(value = 60)
         Integer tempo
 ) {
 }
