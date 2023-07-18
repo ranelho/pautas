@@ -1,11 +1,13 @@
 package com.rlti.pautas.pauta.infra;
 
 import com.rlti.pautas.associados.domain.Associado;
+import com.rlti.pautas.handler.APIException;
 import com.rlti.pautas.pauta.application.repository.VotacaoRepository;
 import com.rlti.pautas.pauta.domain.Pauta;
 import com.rlti.pautas.pauta.domain.Votacao;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

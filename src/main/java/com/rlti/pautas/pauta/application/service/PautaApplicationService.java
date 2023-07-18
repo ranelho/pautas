@@ -52,16 +52,7 @@ public class PautaApplicationService implements PautaService {
         Pauta pauta = pautaRepository.getById(idPauta);
         Associado associado = associadoRepository.findByCpf(request.cpf());
         Optional<Votacao> jaVotou = votacaoRepository.findByAssociadoAndPauta(associado, pauta);
-        if (now.isBefore(pauta.getHorarioInicio())) {
-            throw build(BAD_REQUEST, "A votação ainda não começou! Faltam "
-                    + MINUTES.between(now, pauta.getHorarioInicio()) + " minuto(s) para o início.");
-        }
-        if (now.isAfter(pauta.getHorarioFim()))
-            throw build(BAD_REQUEST, "Horário de votação encerrado");
-        if (jaVotou.isPresent())
-            throw build(BAD_REQUEST, "Associado já votou nesta pauta");
-        if (associado.getStatus().equals(Status.UNABLE_TO_VOTE))
-            throw build(BAD_REQUEST, "Associado não pode votar nesta pauta");
+        validaVotacao(pauta, associado, jaVotou);
         Votacao votacao = votacaoRepository.salva(new Votacao(request, associado, pauta));
         log.info("[finaliza] PautaApplicationService.createVotacao");
         return new VotacaoResponse(votacao);
@@ -80,5 +71,18 @@ public class PautaApplicationService implements PautaService {
         Pauta pauta = pautaRepository.getById(idPauta);
         log.info("[finaliza] PautaApplicationService.getPauta");
         return new PautaResponse(pauta);
+    }
+
+    private void validaVotacao(Pauta pauta, Associado associado, Optional<Votacao> jaVotou) {
+        if (now.isBefore(pauta.getHorarioInicio())) {
+            throw build(BAD_REQUEST, "A votação ainda não começou! Faltam "
+                    + MINUTES.between(now, pauta.getHorarioInicio()) + " minuto(s) para o início.");
+        }
+        if (now.isAfter(pauta.getHorarioFim()))
+            throw build(BAD_REQUEST, "Horário de votação encerrado");
+        if (jaVotou.isPresent())
+            throw build(BAD_REQUEST, "Associado já votou nesta pauta");
+        if (associado.getStatus().equals(Status.UNABLE_TO_VOTE))
+            throw build(BAD_REQUEST, "Associado não pode votar nesta pauta");
     }
 }

@@ -52,15 +52,15 @@ public class Associado {
         this.status = gerarStatusAleatorio();
     }
 
+    public void update(AssociadoUpdateRequest request) {
+        this.fullName = request.fullName().toUpperCase();
+    }
+
     private static final Random random = new Random();
 
     public Status gerarStatusAleatorio() {
         List<Status> list = Arrays.asList(Status.values());
         Collections.shuffle(list, random);
         return list.get(0);
-    }
-
-    public void update(AssociadoUpdateRequest request) {
-        this.fullName = request.fullName().toUpperCase();
     }
 }
