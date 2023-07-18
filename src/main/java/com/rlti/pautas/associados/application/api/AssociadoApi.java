@@ -31,4 +31,9 @@ public interface AssociadoApi {
     @GetMapping("/all")
     @ResponseStatus(OK)
     List<AssociadoResponse> getAllAssociados();
+
+    @PutMapping("/{cpf}")
+    @ResponseStatus(OK)
+    AssociadoResponse updateAssociado(@PathVariable("cpf") @CPF(message = "CPF inválido!") String cpf,
+                                      @Valid @RequestBody AssociadoUpdateRequest request);
 }

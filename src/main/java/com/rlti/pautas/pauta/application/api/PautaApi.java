@@ -1,4 +1,4 @@
-package com.rlti.actdigital.pauta.application.api;
+package com.rlti.pautas.pauta.application.api;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -17,9 +17,10 @@ public interface PautaApi {
     @ResponseStatus(CREATED)
     public PautaResponse createPauta(@Valid @RequestBody PautaRequest request);
 
-    @PostMapping("/votacao")
+    @PostMapping("/votacao/{idPauta}")
     @ResponseStatus(CREATED)
-    public VotacaoResponse createVotacao(@Valid @RequestBody VotacaoRequest request);
+    public VotacaoResponse createVotacao(@PathVariable Long idPauta, @Valid @RequestBody VotacaoRequest request);
+
 
     @GetMapping("/resultado/{idPauta}")
     @ResponseStatus(OK)

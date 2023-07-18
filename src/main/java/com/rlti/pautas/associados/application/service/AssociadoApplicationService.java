@@ -3,6 +3,7 @@ package com.rlti.pautas.associados.application.service;
 import com.rlti.pautas.associados.application.api.AssociadoRequest;
 import com.rlti.pautas.associados.application.api.AssociadoResponse;
 import com.rlti.pautas.associados.application.api.AssociadoStatusResponse;
+import com.rlti.pautas.associados.application.api.AssociadoUpdateRequest;
 import com.rlti.pautas.associados.application.repository.AssociadoRepository;
 import com.rlti.pautas.associados.domain.Associado;
 import lombok.RequiredArgsConstructor;
@@ -49,5 +50,15 @@ public class AssociadoApplicationService implements AssociadoService {
         List<Associado> associados = associadoRepository.findAll();
         log.info("[finaliza] AssociadoApplicationService.getAllAssociados");
         return AssociadoResponse.converte(associados);
+    }
+
+    @Override
+    public AssociadoResponse updateAssociado(String cpf, AssociadoUpdateRequest request) {
+        log.info("[inicia] AssociadoApplicationService.updateAssociado");
+        Associado associado = associadoRepository.findByCpf(cpf);
+        associado.update(request);
+        associadoRepository.save(associado);
+        log.info("[finaliza] AssociadoApplicationService.updateAssociado");
+        return new AssociadoResponse(associado);
     }
 }

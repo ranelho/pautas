@@ -1,7 +1,7 @@
-package com.rlti.actdigital.pauta.domain;
+package com.rlti.pautas.pauta.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.rlti.actdigital.pauta.application.api.PautaRequest;
+import com.rlti.pautas.pauta.application.api.PautaRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
