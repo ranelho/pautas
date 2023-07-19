@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.rlti.pautas.handler.APIException.build;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+
 @Service
 @RequiredArgsConstructor
 @Log4j2
@@ -29,7 +32,7 @@ public class AssociadoApplicationService implements AssociadoService {
     @Override
     public AssociadoResponse getAssociadoByCpf(String cpf) {
         log.info("[inicia] AssociadoApplicationService.getAssociadoByCpf");
-        Associado associado = associadoRepository.findByCpf(cpf);
+        Associado associado = getAssociado(cpf);
         log.info("[finaliza] AssociadoApplicationService.getAssociadoByCpf");
         return new AssociadoResponse(associado);
     }
@@ -37,7 +40,7 @@ public class AssociadoApplicationService implements AssociadoService {
     @Override
     public AssociadoStatusResponse updateStatusAssociado(String cpf) {
         log.info("[inicia] AssociadoApplicationService.updateStatusAssociado");
-        Associado associado = associadoRepository.findByCpf(cpf);
+        Associado associado = getAssociado(cpf);
         associado.newStatus();
         associadoRepository.save(associado);
         log.info("[finaliza] AssociadoApplicationService.updateStatusAssociado");
@@ -55,10 +58,15 @@ public class AssociadoApplicationService implements AssociadoService {
     @Override
     public AssociadoResponse updateAssociado(String cpf, AssociadoUpdateRequest request) {
         log.info("[inicia] AssociadoApplicationService.updateAssociado");
-        Associado associado = associadoRepository.findByCpf(cpf);
+        Associado associado = getAssociado(cpf);
         associado.update(request);
         associadoRepository.save(associado);
         log.info("[finaliza] AssociadoApplicationService.updateAssociado");
         return new AssociadoResponse(associado);
+    }
+
+    private Associado getAssociado(String cpf) {
+        return associadoRepository.findByCpf(cpf)
+                .orElseThrow(() -> build(BAD_REQUEST, "Cpf %s não encontrado!".formatted(cpf)));
     }
 }

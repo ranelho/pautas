@@ -2,7 +2,6 @@ package com.rlti.pautas.pauta.application.service;
 
 import com.rlti.pautas.associados.application.repository.AssociadoRepository;
 import com.rlti.pautas.associados.domain.Associado;
-import com.rlti.pautas.associados.domain.Status;
 import com.rlti.pautas.pauta.application.api.*;
 import com.rlti.pautas.pauta.application.repository.PautaRepository;
 import com.rlti.pautas.pauta.application.repository.VotacaoRepository;
@@ -17,8 +16,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
+import static com.rlti.pautas.associados.domain.Status.UNABLE_TO_VOTE;
 import static com.rlti.pautas.handler.APIException.build;
-import static java.time.temporal.ChronoUnit.*;
+import static java.time.temporal.ChronoUnit.MINUTES;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @Service
@@ -37,12 +37,12 @@ public class PautaApplicationService implements PautaService {
         log.info("[inicia] PautaApplicationService.createPauta");
         Optional<Pauta> existePauta =
                 pautaRepository.getByDescricaoAndHoraInicio(request.descricao(), request.horarioInicio());
-        if(existePauta.isEmpty()) {
+        if (existePauta.isPresent()) {
+            throw build(BAD_REQUEST, "Pauta %s já cadastrada!".formatted(existePauta.get().getDescricao()));
+        } else {
             Pauta pauta = pautaRepository.salva(new Pauta(request));
             log.info("[finaliza] PautaApplicationService.createPauta");
             return new PautaResponse(pauta);
-        }else {
-            throw build(BAD_REQUEST, "Pauta já cadastrada, id: " + existePauta.get().getIdPauta());
         }
     }
 
@@ -50,9 +50,9 @@ public class PautaApplicationService implements PautaService {
     public VotacaoResponse createVotacao(final Long idPauta, final VotacaoRequest request) {
         log.info("[inicia] PautaApplicationService.createVotacao");
         Pauta pauta = pautaRepository.getById(idPauta);
-        Associado associado = associadoRepository.findByCpf(request.cpf());
-        Optional<Votacao> jaVotou = votacaoRepository.findByAssociadoAndPauta(associado, pauta);
-        validaVotacao(pauta, associado, jaVotou);
+        Associado associado = getAssociado(request.cpf());
+        Votacao voto = votacaoRepository.findByAssociadoAndPauta(associado, pauta).get();
+        validaVotacao(pauta, associado, voto);
         Votacao votacao = votacaoRepository.salva(new Votacao(request, associado, pauta));
         log.info("[finaliza] PautaApplicationService.createVotacao");
         return new VotacaoResponse(votacao);
@@ -73,16 +73,21 @@ public class PautaApplicationService implements PautaService {
         return new PautaResponse(pauta);
     }
 
-    private void validaVotacao(Pauta pauta, Associado associado, Optional<Votacao> jaVotou) {
+    private void validaVotacao(Pauta pauta, Associado associado, Votacao voto) {
         if (now.isBefore(pauta.getHorarioInicio())) {
             throw build(BAD_REQUEST, "A votação ainda não começou! Faltam "
                     + MINUTES.between(now, pauta.getHorarioInicio()) + " minuto(s) para o início.");
         }
         if (now.isAfter(pauta.getHorarioFim()))
             throw build(BAD_REQUEST, "Horário de votação encerrado");
-        if (jaVotou.isPresent())
+        if (voto != null)
             throw build(BAD_REQUEST, "Associado já votou nesta pauta");
-        if (associado.getStatus().equals(Status.UNABLE_TO_VOTE))
+        if (associado.getStatus().equals(UNABLE_TO_VOTE))
             throw build(BAD_REQUEST, "Associado não pode votar nesta pauta");
+    }
+
+    private Associado getAssociado(String cpf) {
+        return associadoRepository.findByCpf(cpf)
+                .orElseThrow(() -> build(BAD_REQUEST, "Cpf %s não encontrado!".formatted(cpf)));
     }
 }

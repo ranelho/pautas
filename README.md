@@ -29,7 +29,7 @@ Validação de votos em assembleias:
 ```
 http://localhost:8080/act/api/public/swagger-ui/index.html
 ```
-  |<img src="associados.png" width=300> | <img src="pauta.png" width=300>|
+  <img src="associados.png" width=300>  <img src="pauta.png" width=300>
 
 ### ER Diagrama BD
 <img src="database.png" width=250>
