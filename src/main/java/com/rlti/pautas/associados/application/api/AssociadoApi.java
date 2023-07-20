@@ -1,8 +1,11 @@
 package com.rlti.pautas.associados.application.api;
 
+import com.rlti.pautas.associados.domain.Associado;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +33,7 @@ public interface AssociadoApi {
 
     @GetMapping("/all")
     @ResponseStatus(OK)
-    List<AssociadoResponse> getAllAssociados();
+    Page<AssociadoResponse> getAllAssociados(Pageable pageable);
 
     @PutMapping("/{cpf}")
     @ResponseStatus(OK)

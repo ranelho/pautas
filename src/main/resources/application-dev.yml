@@ -1,7 +1,7 @@
 spring:
   datasource:
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/act #criar banco act
+    url: jdbc:postgresql://localhost:5432/pautas #criar banco act
     username: postgres #seu usuário
     password: 852456 #sua senha
   jpa:
@@ -11,4 +11,5 @@ spring:
         ddl-auto: update
         show_sql: true
         format_sql: true
-  open-in-view: false
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false

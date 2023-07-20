@@ -8,6 +8,9 @@ import com.rlti.pautas.associados.application.repository.AssociadoRepository;
 import com.rlti.pautas.associados.domain.Associado;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,14 +51,6 @@ public class AssociadoApplicationService implements AssociadoService {
     }
 
     @Override
-    public List<AssociadoResponse> getAllAssociados() {
-        log.info("[inicia] AssociadoApplicationService.getAllAssociados");
-        List<Associado> associados = associadoRepository.findAll();
-        log.info("[finaliza] AssociadoApplicationService.getAllAssociados");
-        return AssociadoResponse.converte(associados);
-    }
-
-    @Override
     public AssociadoResponse updateAssociado(String cpf, AssociadoUpdateRequest request) {
         log.info("[inicia] AssociadoApplicationService.updateAssociado");
         Associado associado = getAssociado(cpf);
@@ -63,6 +58,14 @@ public class AssociadoApplicationService implements AssociadoService {
         associadoRepository.save(associado);
         log.info("[finaliza] AssociadoApplicationService.updateAssociado");
         return new AssociadoResponse(associado);
+    }
+
+    @Override
+    public Page<AssociadoResponse> getAllAssociados(Pageable pageable) {
+        log.info("[inicia] AssociadoApplicationService.getAllAssociados");
+        Page<Associado> associados = associadoRepository.findAll(pageable);
+        log.info("[finaliza] AssociadoApplicationService.getAllAssociados");
+        return AssociadoResponse.pageConverte(associados);
     }
 
     private Associado getAssociado(String cpf) {

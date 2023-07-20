@@ -1,8 +1,12 @@
 package com.rlti.pautas.associados.application.api;
 
+import com.rlti.pautas.associados.application.repository.AssociadoRepository;
 import com.rlti.pautas.associados.application.service.AssociadoService;
+import com.rlti.pautas.associados.domain.Associado;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -38,9 +42,9 @@ public class AssociadoRestController implements AssociadoApi {
     }
 
     @Override
-    public List<AssociadoResponse> getAllAssociados() {
+    public Page<AssociadoResponse> getAllAssociados(Pageable pageable) {
         log.info("[inicia] AssociadoRestController.getAllAssociados");
-        List<AssociadoResponse> list = associadoService.getAllAssociados();
+        Page<AssociadoResponse> list = associadoService.getAllAssociados(pageable);
         log.info("[finaliza] AssociadoRestController.getAllAssociados");
         return list;
     }

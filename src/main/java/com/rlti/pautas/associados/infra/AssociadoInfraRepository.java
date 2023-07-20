@@ -5,6 +5,9 @@ import com.rlti.pautas.associados.domain.Associado;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -40,9 +43,9 @@ public class AssociadoInfraRepository implements AssociadoRepository {
     }
 
     @Override
-    public List<Associado> findAll() {
+    public Page<Associado> findAll(Pageable pageable) {
         log.info("[inicia] AssociadoInfraRepository.findAll");
-        List<Associado> associados = jpaRepository.findAll();
+        Page<Associado> associados = jpaRepository.findAll(pageable);
         log.info("[finaliza] AssociadoInfraRepository.findAll");
         return associados;
     }
