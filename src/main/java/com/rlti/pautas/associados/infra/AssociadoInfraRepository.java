@@ -8,6 +8,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -45,7 +46,9 @@ public class AssociadoInfraRepository implements AssociadoRepository {
     @Override
     public Page<Associado> findAll(Pageable pageable) {
         log.info("[inicia] AssociadoInfraRepository.findAll");
-        Page<Associado> associados = jpaRepository.findAll(pageable);
+        Sort fixedSort = Sort.by(Sort.Direction.ASC, "fullName");
+        Pageable pageableWithFixedSort = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), fixedSort);
+        Page<Associado> associados = jpaRepository.findAll(pageableWithFixedSort);
         log.info("[finaliza] AssociadoInfraRepository.findAll");
         return associados;
     }
