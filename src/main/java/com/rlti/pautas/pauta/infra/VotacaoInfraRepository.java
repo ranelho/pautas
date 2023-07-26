@@ -11,7 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
+
+import static com.rlti.pautas.handler.APIException.*;
+import static org.springframework.http.HttpStatus.*;
 
 @Repository
 @Log4j2
@@ -29,11 +31,12 @@ public class VotacaoInfraRepository implements VotacaoRepository {
     }
 
     @Override
-    public Optional<Votacao> findByAssociadoAndPauta(Associado associado, Pauta pauta) {
-        log.info("[inicia] VotacaoInfraRepository.findByAssociadoAndPauta ");
-        Optional<Votacao> result = votacaoSpringDataJPARepository.findByAssociadoAndPauta(associado, pauta);
-        log.info("[finaliza] VotacaoInfraRepository.findByAssociadoAndPauta ");
-        return result;
+    public void findByAssociadoAndPauta(Associado associado, Pauta pauta) {
+        log.info("VotacaoInfraRepository.findByAssociadoAndPauta ");
+        votacaoSpringDataJPARepository.findByAssociadoAndPauta(associado, pauta)
+                .ifPresent(v -> {
+                    throw build(BAD_REQUEST, "Associado já votou nesta pauta!");
+                });
     }
 
     @Override
