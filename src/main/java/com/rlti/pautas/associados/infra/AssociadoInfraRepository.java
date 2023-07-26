@@ -11,11 +11,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 
-import static com.rlti.pautas.handler.APIException.*;
-import static org.springframework.http.HttpStatus.*;
+import static com.rlti.pautas.handler.APIException.build;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @Repository
 @RequiredArgsConstructor

@@ -7,8 +7,6 @@ import com.rlti.pautas.associados.application.api.AssociadoUpdateRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
-
 public interface AssociadoService {
     AssociadoResponse newAssociado(AssociadoRequest associadoRequest);
     AssociadoResponse getAssociadoByCpf(String cpf);

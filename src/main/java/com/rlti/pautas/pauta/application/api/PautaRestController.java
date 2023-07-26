@@ -42,4 +42,12 @@ public class PautaRestController implements PautaApi {
         log.info("[finaliza] PautaRestController.getPauta");
         return response;
     }
+
+    @Override
+    public PautaResponse updatePauta(Long idPauta, PautaRequest request) {
+        log.info("[inicia] PautaRestController.updatePauta");
+        PautaResponse response = pautaService.updatePauta(idPauta, request);
+        log.info("[finaliza] PautaRestController.updatePauta");
+        return response;
+    }
 }

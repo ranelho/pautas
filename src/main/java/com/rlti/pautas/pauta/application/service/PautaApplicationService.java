@@ -51,8 +51,8 @@ public class PautaApplicationService implements PautaService {
         log.info("[inicia] PautaApplicationService.createVotacao");
         Pauta pauta = pautaRepository.getById(idPauta);
         Associado associado = getAssociado(request.cpf());
-        Votacao voto = votacaoRepository.findByAssociadoAndPauta(associado, pauta).get();
-        validaVotacao(pauta, associado, voto);
+        votacaoRepository.findByAssociadoAndPauta(associado, pauta);
+        validaVotacao(pauta, associado);
         Votacao votacao = votacaoRepository.salva(new Votacao(request, associado, pauta));
         log.info("[finaliza] PautaApplicationService.createVotacao");
         return new VotacaoResponse(votacao);
@@ -73,15 +73,24 @@ public class PautaApplicationService implements PautaService {
         return new PautaResponse(pauta);
     }
 
-    private void validaVotacao(Pauta pauta, Associado associado, Votacao voto) {
+    @Override
+    public PautaResponse updatePauta(Long idPauta, PautaRequest request) {
+        log.info("[inicia] PautaApplicationService.updatePauta");
+        Pauta pauta = pautaRepository.getById(idPauta);
+        pauta.update(request);
+        Pauta pautaAtualizada = pautaRepository.salva(pauta);
+        log.info("[finaliza] PautaApplicationService.updatePauta");
+        return new PautaResponse(pautaAtualizada);
+    }
+
+    private void validaVotacao(Pauta pauta, Associado associado) {
+        log.info("now {}", now);
         if (now.isBefore(pauta.getHorarioInicio())) {
             throw build(BAD_REQUEST, "A votação ainda não começou! Faltam "
                     + MINUTES.between(now, pauta.getHorarioInicio()) + " minuto(s) para o início.");
         }
         if (now.isAfter(pauta.getHorarioFim()))
             throw build(BAD_REQUEST, "Horário de votação encerrado");
-        if (voto != null)
-            throw build(BAD_REQUEST, "Associado já votou nesta pauta");
         if (associado.getStatus().equals(UNABLE_TO_VOTE))
             throw build(BAD_REQUEST, "Associado não pode votar nesta pauta");
     }

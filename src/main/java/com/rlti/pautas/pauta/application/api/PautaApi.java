@@ -29,4 +29,9 @@ public interface PautaApi {
     @GetMapping("/{idPauta}")
     @ResponseStatus(OK)
     public PautaResponse getPauta(@PathVariable("idPauta") Long idPauta);
+
+    @PutMapping("/{idPauta}")
+    @ResponseStatus(OK)
+    public PautaResponse updatePauta(@PathVariable Long idPauta, @Valid @RequestBody PautaRequest request);
+
 }

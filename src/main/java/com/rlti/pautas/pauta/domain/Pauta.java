@@ -38,7 +38,17 @@ public class Pauta {
             this.horarioFim = request.horarioInicio().plusMinutes(request.tempo());
         }
         else {
-            //tempo por default é 1 minuto
+            this.horarioFim = request.horarioInicio().plusMinutes(1);
+        }
+    }
+
+    public void update(PautaRequest request) {
+        this.descricao = request.descricao().toUpperCase();
+        this.horarioInicio = request.horarioInicio();
+        if(request.tempo() > 1) {
+            this.horarioFim = request.horarioInicio().plusMinutes(request.tempo());
+        }
+        else {
             this.horarioFim = request.horarioInicio().plusMinutes(1);
         }
     }

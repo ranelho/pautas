@@ -62,8 +62,7 @@ public class RestResponseEntityExceptionHandler {
 	@ExceptionHandler(HttpMessageNotReadableException.class)
 	public ResponseEntity<Map<String, String>> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
 		Throwable rootCause = ex.getRootCause();
-		if (rootCause instanceof DateTimeParseException) {
-			DateTimeParseException dateTimeParseException = (DateTimeParseException) rootCause;
+		if (rootCause instanceof DateTimeParseException dateTimeParseException) {
 			return handleDateTimeParseException(dateTimeParseException);
 		}
 		Map<String, String> errors = new HashMap<>();
