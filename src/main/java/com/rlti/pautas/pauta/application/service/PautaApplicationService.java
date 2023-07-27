@@ -13,7 +13,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -73,13 +72,16 @@ public class PautaApplicationService implements PautaService {
     }
 
     @Override
-    public PautaResponse updatePauta(Long idPauta, PautaRequest request) {
+    public PautaResponse updatePauta(Long idPauta,final PautaRequest request) {
         log.info("[inicia] PautaApplicationService.updatePauta");
         Pauta pauta = pautaRepository.getById(idPauta);
-        pauta.update(request);
-        Pauta pautaAtualizada = pautaRepository.salva(pauta);
-        log.info("[finaliza] PautaApplicationService.updatePauta");
-        return new PautaResponse(pautaAtualizada);
+        if (pauta.getHorarioInicio().isAfter(timeSynchronizer.getCurrentTime())) {
+            pauta.update(request);
+            pautaRepository.salva(pauta);
+            log.info("[finaliza] PautaApplicationService.updatePauta");
+            return new PautaResponse(pauta);
+        }
+        throw build(BAD_REQUEST, "Transação não permitida, garantia de integridade da Pauta!");
     }
 
     private void validaVotacao(Pauta pauta, Associado associado) {
