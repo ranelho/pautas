@@ -25,4 +25,9 @@ public class DateConfig {
         return new ObjectMapper()
                 .registerModule(module);
     }
+
+    @Bean
+    public TimeSynchronizer timeSynchronizerBean() {
+        return new TimeSynchronizer();
+    }
 }

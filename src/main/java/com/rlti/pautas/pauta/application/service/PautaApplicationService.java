@@ -2,6 +2,7 @@ package com.rlti.pautas.pauta.application.service;
 
 import com.rlti.pautas.associados.application.repository.AssociadoRepository;
 import com.rlti.pautas.associados.domain.Associado;
+import com.rlti.pautas.config.TimeSynchronizer;
 import com.rlti.pautas.pauta.application.api.*;
 import com.rlti.pautas.pauta.application.repository.PautaRepository;
 import com.rlti.pautas.pauta.application.repository.VotacaoRepository;
@@ -28,9 +29,7 @@ public class PautaApplicationService implements PautaService {
     private final PautaRepository pautaRepository;
     private final VotacaoRepository votacaoRepository;
     private final AssociadoRepository associadoRepository;
-
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-    LocalDateTime now = LocalDateTime.parse(formatter.format(LocalDateTime.now()));
+    private final TimeSynchronizer timeSynchronizer;
 
     @Override
     public PautaResponse createPauta(final PautaRequest request) {
@@ -84,7 +83,7 @@ public class PautaApplicationService implements PautaService {
     }
 
     private void validaVotacao(Pauta pauta, Associado associado) {
-        log.info("now {}", now);
+        LocalDateTime now = timeSynchronizer.getCurrentTime();
         if (now.isBefore(pauta.getHorarioInicio())) {
             throw build(BAD_REQUEST, "A votação ainda não começou! Faltam "
                     + MINUTES.between(now, pauta.getHorarioInicio()) + " minuto(s) para o início.");
